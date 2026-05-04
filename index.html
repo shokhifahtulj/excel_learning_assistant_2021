@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="theme-color" content="#00552e">
+    <title>Masuk - Excel Learning Assistant</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./assets/icon-192.png">
+
+    <!-- CSS & Fonts -->
+    <link href="./css/style.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="./js/tailwind-config.js"></script>
+
+    <!-- App Logic -->
+    <script src="./js/data.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/app.js" defer></script>
+</head>
+<body class="bg-background min-h-[100dvh] flex items-center justify-center p-4 login-gradient">
+    <main class="w-full max-w-[400px] flex flex-col gap-6 lg:gap-8 z-10 animate-fade-in">
+        
+        <!-- Brand Section -->
+        <div class="flex flex-col items-center text-center gap-2">
+            <div class="w-16 h-16 bg-primary-container rounded-2xl flex items-center justify-center shadow-lg mb-2">
+                <span class="material-symbols-outlined text-on-primary-container text-[40px]" data-icon="table_chart">table_chart</span>
+            </div>
+            <h1 class="text-3xl font-bold text-emerald-900 tracking-tight">Excel Master</h1>
+            <p class="text-sm text-gray-500">Belajar mengolah data dengan cerdas dan mudah.</p>
+        </div>
+
+        <!-- Login Card -->
+        <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex flex-col gap-6">
+            <div class="flex flex-col gap-1">
+                <h2 class="text-xl font-bold text-gray-900">Masuk ke Akun</h2>
+                <p class="text-sm text-gray-500">Silakan masukkan detail login Anda.</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="flex flex-col gap-5">
+                <div id="error-msg" class="hidden bg-red-50 text-red-600 text-sm p-3 rounded-lg border border-red-100">
+                    Username atau password salah!
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-sm font-semibold text-gray-700" for="username">Nama Pengguna</label>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-gray-400 text-[20px]" data-icon="person">person</span>
+                        </div>
+                        <input class="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary focus:border-primary focus:bg-white outline-none transition-all-custom" id="username" name="username" placeholder="Masukkan username (admin/siswa)" type="text" required />
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-sm font-semibold text-gray-700" for="password">Kata Sandi</label>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-gray-400 text-[20px]" data-icon="lock">lock</span>
+                        </div>
+                        <input class="w-full pl-10 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary focus:border-primary focus:bg-white outline-none transition-all-custom" id="password" name="password" placeholder="Masukkan kata sandi (admin123/siswa123)" type="password" required />
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full mt-2 py-3.5 bg-primary hover:bg-emerald-800 text-white font-semibold text-sm rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all-custom flex items-center justify-center gap-2">
+                    <span>Masuk</span>
+                    <span class="material-symbols-outlined text-[18px]" data-icon="login">login</span>
+                </button>
+                
+                <!-- Helper / Hint -->
+                <div class="mt-4 bg-emerald-50 rounded-xl p-4 border border-emerald-100 flex flex-col gap-2">
+                    <p class="text-xs font-bold text-emerald-800 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]" data-icon="info">info</span>
+                        Informasi Login
+                    </p>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
+                        <div class="bg-white p-2 rounded border border-emerald-50 text-center">
+                            <span class="block font-bold text-emerald-700">Admin</span>
+                            user: <code class="font-mono bg-gray-50 px-1 text-gray-800">admin</code><br>
+                            pass: <code class="font-mono bg-gray-50 px-1 text-gray-800">admin123</code>
+                        </div>
+                        <div class="bg-white p-2 rounded border border-emerald-50 text-center">
+                            <span class="block font-bold text-emerald-700">Siswa</span>
+                            user: <code class="font-mono bg-gray-50 px-1 text-gray-800">siswa</code><br>
+                            pass: <code class="font-mono bg-gray-50 px-1 text-gray-800">siswa123</code>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Decorative Elements (Hidden on small mobile) -->
+    <div class="fixed top-20 -left-20 w-64 h-64 bg-emerald-200/40 rounded-full blur-3xl -z-10 hidden sm:block"></div>
+    <div class="fixed bottom-20 -right-20 w-80 h-80 bg-blue-100/50 rounded-full blur-3xl -z-10 hidden sm:block"></div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // UI Feedback
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin" data-icon="refresh">refresh</span><span>Memproses...</span>`;
+            btn.disabled = true;
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
+            
+            const errorMsg = document.getElementById('error-msg');
+            errorMsg.classList.add('hidden');
+            
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            
+            // Simulate network delay for UX
+            setTimeout(() => {
+                if(window.AuthService.login(user, pass)) {
+                    // Trigger reload to route correctly
+                    window.location.reload();
+                } else {
+                    errorMsg.classList.remove('hidden');
+                    // Reset UI
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-80', 'cursor-not-allowed');
+                }
+            }, 600);
+        });
+    </script>
+</body>
+</html>
