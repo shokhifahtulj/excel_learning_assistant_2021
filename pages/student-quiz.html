@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="theme-color" content="#00552e">
+    <title>Quiz - Excel Master</title>
+    
+    <link rel="manifest" href="../manifest.json">
+    <link href="../css/style.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind-config.js"></script>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/chatbot-data.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/student.js" defer></script>
+    <script src="../js/app.js" defer></script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+    
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+
+    <main class="lg:ml-[280px] pt-20 pb-24 px-4 md:px-8 max-w-4xl mx-auto min-h-[100dvh] flex flex-col gap-6 transition-all-custom animate-fade-in">
+        
+        <div class="mb-2 flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center border border-blue-200">
+                <span class="material-symbols-outlined text-[28px]" data-icon="quiz">quiz</span>
+            </div>
+            <div>
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-0.5">Evaluasi Pembelajaran</p>
+                <h2 id="quiz-course-title" class="text-2xl font-bold text-gray-900 tracking-tight">...</h2>
+            </div>
+        </div>
+
+        <!-- Quiz Form -->
+        <form id="quiz-form" class="flex flex-col gap-6">
+            <div id="quiz-questions-container" class="flex flex-col gap-6">
+                <!-- Injected via JS -->
+            </div>
+
+            <div class="flex justify-end mt-4">
+                <button type="submit" id="btn-submit-quiz" class="w-full sm:w-auto px-8 py-3.5 bg-primary hover:bg-emerald-800 text-white font-bold text-sm rounded-xl transition-all-custom shadow-md hover:shadow-lg flex justify-center items-center gap-2">
+                    Kumpulkan Jawaban <span class="material-symbols-outlined text-[18px]" data-icon="send">send</span>
+                </button>
+            </div>
+        </form>
+
+        <!-- Quiz Result (Hidden by default) -->
+        <div id="quiz-result" class="hidden bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 p-8 md:p-12 text-center flex flex-col items-center">
+            <div class="w-24 h-24 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center mb-6 ring-8 ring-emerald-50/50">
+                <span class="material-symbols-outlined text-[48px]" data-icon="workspace_premium">workspace_premium</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Quiz Selesai!</h3>
+            <p class="text-gray-500 mb-6">Skor Anda:</p>
+            <div class="text-[80px] font-black text-emerald-600 leading-none mb-4 drop-shadow-sm" id="result-score">0</div>
+            <p id="result-message" class="text-gray-600 font-medium mb-8">...</p>
+            
+            <a id="btn-back-course" href="#" class="px-6 py-3 bg-gray-100 text-gray-700 hover:bg-gray-200 font-bold text-sm rounded-xl transition-colors inline-flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]" data-icon="arrow_back">arrow_back</span> Kembali ke Daftar Materi
+            </a>
+        </div>
+
+    </main>
+
+    <app-chatbot></app-chatbot>
+    <app-bottom-nav></app-bottom-nav>
+</body>
+</html>

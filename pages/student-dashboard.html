@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="theme-color" content="#00552e">
+    <title>Dashboard Siswa - Excel Master</title>
+    
+    <link rel="manifest" href="../manifest.json">
+    <link href="../css/style.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind-config.js"></script>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/chatbot-data.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/student.js" defer></script>
+    <script src="../js/app.js" defer></script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+    
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+
+    <main class="lg:ml-[280px] pt-20 pb-24 px-4 md:px-8 max-w-7xl mx-auto min-h-[100dvh] flex flex-col gap-8 transition-all-custom animate-fade-in">
+        
+        <!-- Welcome Banner -->
+        <div class="bg-primary text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div class="absolute -right-20 -top-20 w-64 h-64 bg-emerald-600 rounded-full blur-3xl opacity-50 z-0"></div>
+            <div class="relative z-10 w-full">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2">Halo, <span id="student-name">Siswa</span>! 👋</h2>
+                <p class="text-emerald-100 text-sm max-w-lg leading-relaxed">Siap untuk melanjutkan pembelajaranmu hari ini? Ayo tingkatkan skill Excel-mu ke level berikutnya.</p>
+                <button class="mt-6 bg-white hover:bg-emerald-50 text-emerald-900 px-5 py-2.5 rounded-xl font-bold text-sm transition-colors shadow-md flex items-center gap-2">
+                    Lanjut Belajar
+                    <span class="material-symbols-outlined text-[18px]" data-icon="play_arrow">play_arrow</span>
+                </button>
+            </div>
+            
+            <div class="relative z-10 w-full sm:w-auto bg-emerald-800/50 backdrop-blur-sm border border-emerald-600/50 rounded-2xl p-4 flex flex-col items-center min-w-[160px]">
+                <span id="stat-badges" class="text-xs font-bold text-emerald-200 tracking-widest uppercase mb-2">0 Kuis Selesai</span>
+                <div class="relative w-16 h-16 flex justify-center items-center">
+                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                        <path class="text-emerald-900/50" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+                        <path id="progress-circle" class="text-emerald-400" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="transition: stroke-dasharray 1s ease-out;"></path>
+                    </svg>
+                    <div class="absolute flex flex-col items-center justify-center">
+                        <span id="progress-text" class="text-sm font-bold">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+            <!-- Content -->
+            <div id="recent-courses-container" class="lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-6 content-start">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- Sidebar Content -->
+            <div class="lg:col-span-1 flex flex-col gap-6">
+                <!-- Achievement Card -->
+                <div class="bg-white rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] border border-gray-100 p-5">
+                    <h3 class="text-base font-bold text-emerald-900 mb-4 border-b border-gray-100 pb-2">Pencapaian</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 rounded-xl p-3 text-center border border-slate-100">
+                            <span class="material-symbols-outlined text-amber-500 text-3xl mb-1" data-icon="workspace_premium">workspace_premium</span>
+                            <p id="stat-badge-text" class="text-xs font-bold text-gray-800">0 Lencana</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-3 text-center border border-slate-100">
+                            <span class="material-symbols-outlined text-blue-500 text-3xl mb-1" data-icon="local_fire_department">local_fire_department</span>
+                            <p id="stat-streak-text" class="text-xs font-bold text-gray-800">1 Hari Runtun</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Quiz -->
+                <div id="pending-task-container">
+                    <!-- Dynamic -->
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <app-chatbot></app-chatbot>
+    <app-bottom-nav></app-bottom-nav>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="theme-color" content="#00552e">
+    <title>Sertifikat - Excel Master</title>
+    
+    <link rel="manifest" href="../manifest.json">
+    <link href="../css/style.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind-config.js"></script>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/chatbot-data.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/student.js" defer></script>
+    <script src="../js/app.js" defer></script>
+
+    <style>
+        /* Certificate Print Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #certificate-container, #certificate-container * {
+                visibility: visible;
+            }
+            #certificate-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                border: none;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+    
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+
+    <main class="lg:ml-[280px] pt-20 pb-24 px-4 md:px-8 max-w-5xl mx-auto min-h-[100dvh] flex flex-col gap-6 transition-all-custom animate-fade-in">
+        
+        <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[24px]" data-icon="workspace_premium">workspace_premium</span>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold text-gray-900">Sertifikat Kelulusan</h2>
+                <p class="text-sm text-gray-500">Bukti nyata penguasaan materi Excel 2021 Anda.</p>
+            </div>
+        </div>
+
+        <!-- Locked State -->
+        <div id="cert-locked" class="hidden bg-white p-8 sm:p-12 rounded-3xl shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center mt-4">
+            <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mb-6">
+                <span class="material-symbols-outlined text-5xl text-gray-400" data-icon="lock">lock</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Sertifikat Terkunci</h3>
+            <p class="text-gray-500 max-w-md text-sm leading-relaxed mb-6">
+                Selesaikan semua level materi dan kuis secara berurutan untuk membuka sertifikat ini. Buktikan kemampuan Anda!
+            </p>
+            <a href="student-courses.html" class="px-6 py-3 bg-primary hover:bg-emerald-800 text-white font-bold rounded-xl shadow-md transition-all-custom flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]" data-icon="menu_book">menu_book</span>
+                Lanjut Belajar
+            </a>
+        </div>
+
+        <!-- Unlocked State -->
+        <div id="cert-unlocked" class="hidden flex-col gap-6 items-center">
+            
+            <div class="w-full flex justify-end no-print">
+                <button id="btn-download-cert" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm transition-colors flex items-center gap-2 text-sm">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+                    Download PDF
+                </button>
+            </div>
+
+            <!-- The Certificate UI -->
+            <div id="certificate-container" class="w-full max-w-[800px] aspect-[1.414/1] bg-white relative border-[16px] border-double border-emerald-800 p-8 sm:p-12 flex flex-col items-center text-center shadow-2xl overflow-hidden print-cert">
+                
+                <!-- Background decoration -->
+                <div class="absolute -top-32 -left-32 w-64 h-64 bg-emerald-100 rounded-full opacity-50 blur-2xl"></div>
+                <div class="absolute -bottom-32 -right-32 w-64 h-64 bg-blue-50 rounded-full opacity-50 blur-2xl"></div>
+                <div class="absolute top-4 right-4 w-16 h-16 border-t-4 border-r-4 border-emerald-600 opacity-20"></div>
+                <div class="absolute bottom-4 left-4 w-16 h-16 border-b-4 border-l-4 border-emerald-600 opacity-20"></div>
+
+                <!-- Content -->
+                <div class="relative z-10 w-full h-full flex flex-col items-center justify-between py-4">
+                    
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-16 h-16 bg-emerald-700 rounded-lg flex items-center justify-center shadow-md mb-2">
+                            <span class="material-symbols-outlined text-white text-3xl" data-icon="table_chart">table_chart</span>
+                        </div>
+                        <h4 class="text-emerald-800 font-bold tracking-widest uppercase text-sm">Excel Learning Assistant</h4>
+                    </div>
+
+                    <div class="flex flex-col items-center my-6">
+                        <h1 class="text-4xl sm:text-5xl font-serif font-bold text-gray-900 mb-2">Sertifikat Kelulusan</h1>
+                        <p class="text-sm sm:text-base text-gray-500 italic">Diberikan dengan penuh kebanggaan kepada:</p>
+                    </div>
+
+                    <div class="w-full max-w-md border-b-2 border-emerald-600 pb-2 mb-6">
+                        <h2 id="cert-student-name" class="text-3xl sm:text-4xl font-bold text-emerald-900 font-sans">Nama Siswa</h2>
+                    </div>
+
+                    <p class="text-sm sm:text-base text-gray-600 max-w-lg leading-relaxed">
+                        Telah berhasil menyelesaikan seluruh modul pembelajaran, praktik, dan evaluasi dalam program <strong class="text-emerald-800">Certified Excel 2021 Master</strong>.
+                    </p>
+
+                    <div class="w-full flex justify-between items-end mt-auto px-8">
+                        <div class="flex flex-col items-center">
+                            <p id="cert-date" class="text-sm font-bold text-gray-800 border-b border-gray-300 pb-1 mb-1 min-w-[120px] text-center">Tanggal</p>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest">Tanggal Lulus</p>
+                        </div>
+                        
+                        <div class="w-24 h-24 relative flex items-center justify-center">
+                            <span class="material-symbols-outlined text-emerald-600 text-6xl absolute" data-icon="verified">verified</span>
+                        </div>
+
+                        <div class="flex flex-col items-center">
+                            <p class="text-sm font-bold text-gray-800 border-b border-gray-300 pb-1 mb-1 min-w-[120px] text-center font-cursive text-xl">Admin</p>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest">Instruktur Utama</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <app-chatbot></app-chatbot>
+    <app-bottom-nav></app-bottom-nav>
+
+</body>
+</html>

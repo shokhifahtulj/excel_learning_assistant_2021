@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="theme-color" content="#00552e">
+    <title>Dashboard Admin - Excel Master</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="../manifest.json">
+
+    <!-- CSS & Fonts -->
+    <link href="../css/style.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind-config.js"></script>
+
+    <!-- App Logic -->
+    <script src="../js/data.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/admin.js" defer></script>
+    <script src="../js/app.js" defer></script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+    
+    <!-- Web Components for Layout -->
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+
+    <!-- Main Content Canvas -->
+    <main class="lg:ml-[280px] pt-20 pb-24 px-4 md:px-8 max-w-7xl mx-auto min-h-[100dvh] flex flex-col gap-8 transition-all-custom animate-fade-in">
+        
+        <!-- Header Section -->
+        <div>
+            <h2 class="text-2xl font-bold text-emerald-900 tracking-tight">Ringkasan Admin</h2>
+            <p class="text-sm text-gray-500 mt-1">Pantau progres pembelajaran dan statistik siswa secara real-time.</p>
+        </div>
+
+        <!-- Bento Grid Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+            <!-- Stat Card 1 -->
+            <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(25,108,63,0.06)] border border-emerald-50 flex items-center gap-5 hover:-translate-y-1 transition-transform cursor-default">
+                <div class="w-14 h-14 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-700 shadow-sm border border-emerald-100">
+                    <span class="material-symbols-outlined text-3xl" data-icon="menu_book">menu_book</span>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Materi</p>
+                    <p id="stat-materi" class="text-3xl font-black text-emerald-900 leading-none">0</p>
+                </div>
+            </div>
+            
+            <!-- Stat Card 2 -->
+            <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(25,108,63,0.06)] border border-blue-50 flex items-center gap-5 hover:-translate-y-1 transition-transform cursor-default">
+                <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center text-blue-700 shadow-sm border border-blue-100">
+                    <span class="material-symbols-outlined text-3xl" data-icon="quiz">quiz</span>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Soal</p>
+                    <p id="stat-soal" class="text-3xl font-black text-blue-900 leading-none">0</p>
+                </div>
+            </div>
+            
+            <!-- Stat Card 3 -->
+            <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(25,108,63,0.06)] border border-orange-50 flex items-center gap-5 hover:-translate-y-1 transition-transform cursor-default">
+                <div class="w-14 h-14 rounded-full bg-orange-50 flex items-center justify-center text-orange-700 shadow-sm border border-orange-100">
+                    <span class="material-symbols-outlined text-3xl" data-icon="groups">groups</span>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Siswa</p>
+                    <p id="stat-siswa" class="text-3xl font-black text-orange-900 leading-none">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+            
+            <!-- Table Card -->
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden flex flex-col">
+                <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                    <h3 class="text-lg font-bold text-emerald-900">Siswa Terbaru</h3>
+                    <button class="text-sm font-semibold text-emerald-600 hover:text-emerald-800 transition-colors">Lihat Semua</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[500px]">
+                        <thead>
+                            <tr class="bg-white border-b border-gray-50">
+                                <th class="px-6 py-4 text-xs font-bold text-gray-400 tracking-wider">NAMA SISWA</th>
+                                <th class="px-6 py-4 text-xs font-bold text-gray-400 tracking-wider">PROGRES</th>
+                                <th class="px-6 py-4 text-xs font-bold text-gray-400 tracking-wider">PENCAPAIAN</th>
+                                <th class="px-6 py-4 text-xs font-bold text-gray-400 tracking-wider text-right">AKSI</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-siswa-body" class="divide-y divide-gray-50">
+                            <!-- Injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Activity Card -->
+            <div class="lg:col-span-1 space-y-6">
+                <div class="bg-emerald-800 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden h-full flex flex-col justify-between group">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-emerald-600 rounded-full blur-3xl opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                    <div class="relative z-10">
+                        <span class="inline-block px-2.5 py-1 bg-emerald-950/40 rounded-md text-[10px] font-bold tracking-widest mb-4 border border-emerald-700/50">PENGUMUMAN</span>
+                        <h4 class="text-xl font-bold leading-tight mb-2">Upgrade Materi Excel 365</h4>
+                        <p class="text-sm text-emerald-100/90 leading-relaxed">Materi baru tentang Dynamic Arrays kini sudah tersedia untuk diunggah ke portal siswa.</p>
+                    </div>
+                    <a href="./admin-materi.html" class="relative z-10 mt-8 bg-white hover:bg-emerald-50 text-emerald-900 px-4 py-3 rounded-xl font-semibold text-sm w-full flex items-center justify-center gap-2 transition-colors shadow-sm">
+                        Kelola Materi <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <app-bottom-nav></app-bottom-nav>
+</body>
+</html>
